@@ -7,7 +7,7 @@ node_modules
 .wrangler
 /.svelte-kit
 /build
-
+.vs*
 # OS
 .DS_Store
 Thumbs.db
