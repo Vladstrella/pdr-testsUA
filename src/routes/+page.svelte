@@ -1,14 +1,8 @@
 <script lang="ts">
 	const { data } = $props();
 
-	const exam = [
-		{ count: 10, test: "Загальні положення" },
-		{ count: 4, test: "Додаткові питання щодо категорій B1, B (будова і терміни)" },
-		{ count: 4, test: "Надання першої медичної допомоги" },
-		{ count: 2, test: "Основи безпечного водіння" },
-	];
+	const tests = $derived(data.tests.toSorted((a, b) => a.localeCompare(b, undefined, { numeric: true })));
 
-	const tests = $derived(data.tests.filter((test) => !exam.some((e) => e.test === test)));
 
 	let scrollY = $state(0);
 </script>
@@ -22,9 +16,9 @@
 </svelte:head>
 
 <main>
+	<!--
 	<section class="exam" aria-label="Пробний екзамен">
 		<h2>
-			<!-- client-side navigation keeps this page painted until the shuffled exam is ready -->
 			<a href="/random" class="start" data-sveltekit-reload="off" data-sveltekit-preload-data="hover">Пробний екзамен</a
 			>
 		</h2>
@@ -50,9 +44,10 @@
 			</svg>
 		</button>
 	</section>
+	-->
 
 	<section class="all" aria-labelledby="all-tests">
-		<h2 id="all-tests">Інші тести ({tests.length})</h2>
+		<h2 id="all-tests">Тести ({tests.length})</h2>
 		<ol>
 			{#each tests as test}
 				<li>
@@ -227,7 +222,6 @@
 					border-radius: 10px;
 
 					&::before {
-						content: counter(test-list, decimal-leading-zero) ".";
 						flex-shrink: 0;
 					}
 
